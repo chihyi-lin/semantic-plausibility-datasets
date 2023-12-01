@@ -1,19 +1,25 @@
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
-def combine_data():
+train_path = "../datasets/adept/train-dev-test-split/train.json"
+val_path = "../datasets/adept/train-dev-test-split/val.json"
+test_path = "../datasets/adept/train-dev-test-split/test.json"
+
+
+def combine_data(train_path, val_path, test_path):
     """
     Combining the train/val/test datasets into a single dataset for data analysis.
     """
 
-    with open("ADEPT_Dataset/train.json", "r") as train_file:
+    with open(train_path, "r") as train_file:
         train_data = json.load(train_file)
 
-    with open("ADEPT_Dataset/val.json", "r") as val_file:
+    with open(val_path, "r") as val_file:
         val_data = json.load(val_file)
 
-    with open("ADEPT_Dataset/test.json", "r") as test_file:
+    with open(test_path, "r") as test_file:
         test_data = json.load(test_file)
     
     train_df = pd.DataFrame(train_data)
@@ -26,28 +32,94 @@ def combine_data():
 
     return combined_df
 
+
 def compute_statistics(df):
     """
-    Show statistics of the dataset, including overall, modifiers and Mod-N pairs.
+    Print and plot statistics of the dataset, including overall, modifiers and Mod-N pairs.
     """
+    output_folder = "plots"
+    os.makedirs(output_folder, exist_ok=True)
+    
+    compute_overall(df, output_folder)
+    sorted_modifiers = compute_modifiers(df)
+    plot_freq_and_ranking(sorted_modifiers, output_folder)
+    compute_mod_n_pairs(df)
+    print(f'\nPlease checkout the "plots" folder for label distribution and ranked modifers counts.')
+
+    return None
+
+
+def compute_overall(df, output_folder):
+    """
+    Counts total number of instances and label distribution.
+    """
+
     print(f"----- OVERALL -----")
     instance_counts = len(df)
-    label_counts = df["label"].value_counts()
+    
+    label_mapping = {
+    0: "Impossible",
+    1: "Less likely",
+    2: "Equally likely",
+    3: "More likely",
+    4: "Necessarily true"
+}
+    df["label_strings"] = df["label"].map(label_mapping)
+    label_counts = df["label_strings"].value_counts()
     label_proportions = label_counts / instance_counts
     label_stat = pd.DataFrame({"Label counts": label_counts,
                                 "Label proportions": label_proportions})
     print(f"Instance counts: {instance_counts}")
     print(f"\n{label_stat}")
+
+    # plot_label_distribution
+    fig, ax = plt.subplots(figsize=(8, 6), layout='constrained')
+    bars = ax.bar(label_proportions.index, label_proportions, color="skyblue")
+
+    for bar, proportion in zip(bars, label_proportions):
+        plt.text(bar.get_x() + bar.get_width() / 2 - 0.1, bar.get_height() + 0.01, f"{proportion:.2f}", fontsize=10)
+    plt.xlabel("Label")
+    plt.ylabel("Proportion")
+    plt.title("Label Distribution")
+    plt.xticks(rotation=45, ha="right", fontsize=10)
     
+    output_path = os.path.join(output_folder, "label_distribution.png")
+    plt.savefig(output_path)
+
+
+def compute_modifiers(df):
+    """
+    Counting numbers of unique modifiers and the print the top 10 frequent modifiers.
+    """
     print(f"\n----- MODIFIERS -----")
     num_unique_modifiers = len(df["modifier"].unique())
     print(f"Counts of unique modifiers: {num_unique_modifiers}")
     unique_modifier_counts = df["modifier"].value_counts()
     sorted_modifiers = unique_modifier_counts.sort_values(ascending=False)
     print(f"\nTop 10 frequent modifiers and their counts: \n{sorted_modifiers[:10]}")
-    
-    plot_freq_and_ranking(sorted_modifiers)
+    return sorted_modifiers
 
+
+def plot_freq_and_ranking(sorted_counts, output_folder):
+    """
+    Plot frequency and ranking for unique modifiers.
+    """
+    counts_df = pd.DataFrame({
+        "modifier": sorted_counts.index,
+        "count": sorted_counts.values
+    })
+    counts_df["ranking"] = counts_df["count"].rank(ascending=False, method="dense")
+    plt.figure()
+    plt.scatter(counts_df["ranking"], counts_df["count"])
+    plt.xlabel('Ranking (descending order of counts)')
+    plt.ylabel('Counts')
+    plt.title('Unique Modifiers Counts vs Ranking')
+    
+    output_path = os.path.join(output_folder, "unique_mod_counts_vs_ranking.png")
+    plt.savefig(output_path)
+
+
+def compute_mod_n_pairs(df):
     print(f"\n----- MODIFIER-NOUN PAIRS -----")
     sorted_pair_counts, top10_pairs = __count_freq_and_top10_pairs(df)
     print(f"\nTop 10 frequent pairs and their counts: \n{top10_pairs}")
@@ -58,22 +130,6 @@ def compute_statistics(df):
     sorted_label_4_pair_counts, label_4_top10_pairs = __count_freq_and_top10_pairs(df_label_4)
     print(f'\nTop 10 frequent pairs and their counts in class "Necessarily true": \n{label_4_top10_pairs}')
 
-    return None
-
-def plot_freq_and_ranking(sorted_counts):
-    """
-    Plot frequency and ranking for unique modifiers.
-    """
-    counts_df = pd.DataFrame({
-        "modifier": sorted_counts.index,
-        "count": sorted_counts.values
-    })
-    counts_df["ranking"] = counts_df["count"].rank(ascending=False, method="dense")
-    plt.scatter(counts_df["ranking"], counts_df["count"])
-    plt.xlabel('Ranking (descending order of counts)')
-    plt.ylabel('Counts')
-    plt.title('Unique Modifiers Counts vs Ranking')
-    plt.show()
 
 def __count_freq_and_top10_pairs(df):
     """
@@ -84,5 +140,8 @@ def __count_freq_and_top10_pairs(df):
     top10_pairs = sorted_pair_counts.head(10)
     return sorted_pair_counts, top10_pairs
 
-combined_df = combine_data()
+
+combined_df = combine_data(train_path, val_path, test_path)
 compute_statistics(combined_df) 
+# TODO: main()
+# TODO: shellscript()
