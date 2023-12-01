@@ -3,10 +3,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
+script_directory = os.path.dirname(os.path.abspath(__file__)) 
 train_path = "../datasets/adept/train-dev-test-split/train.json"
 val_path = "../datasets/adept/train-dev-test-split/val.json"
 test_path = "../datasets/adept/train-dev-test-split/test.json"
-
+abs_train_path = os.path.abspath(os.path.join(script_directory, train_path))
+abs_val_path = os.path.abspath(os.path.join(script_directory, val_path))
+abs_test_path = os.path.abspath(os.path.join(script_directory, test_path))
 
 def combine_data(train_path, val_path, test_path):
     """
@@ -110,7 +113,8 @@ def plot_freq_and_ranking(sorted_counts, output_folder):
     })
     counts_df["ranking"] = counts_df["count"].rank(ascending=False, method="dense")
     plt.figure()
-    plt.scatter(counts_df["ranking"], counts_df["count"])
+    colors = counts_df["count"]
+    plt.scatter(counts_df["ranking"], counts_df["count"], c=colors, alpha= 0.3)
     plt.xlabel('Ranking (descending order of counts)')
     plt.ylabel('Counts')
     plt.title('Unique Modifiers Counts vs Ranking')
@@ -141,7 +145,7 @@ def __count_freq_and_top10_pairs(df):
     return sorted_pair_counts, top10_pairs
 
 
-combined_df = combine_data(train_path, val_path, test_path)
+combined_df = combine_data(abs_train_path, abs_val_path, abs_test_path)
 compute_statistics(combined_df) 
 # TODO: main()
-# TODO: shellscript()
+# TODO: shellscript
