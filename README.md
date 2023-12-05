@@ -1,3 +1,5 @@
+Authors (alphabetical order): Chih-Yi Lin, Quy Nguyen and Wen Wen
+
 # semantic_plausibility
 
 ## DATASET ANALYSIS
