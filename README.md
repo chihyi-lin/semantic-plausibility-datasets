@@ -35,3 +35,26 @@ We analyzed the following five aspects:
 **Weaknesses:**
 1. The labels are highly imbalanced for both 5-class and 3-class labels.
 2. The distribution of modifiers is also imbalanced, with many duplicated non-subsective adjectives, as well as adj-noun pairs.
+
+### PAP
+We explore the following aspecs
+* Raw annotation
+    * Basic statistics
+    * The skewness toward Plausibility of the dataset (based on Average Median Ratings)
+* Entropy in ratings
+    * Concreteness rating of each constituent of s-v-o triples
+    * Weak Correlation between constituent concreteness rating and disagreement (entropy) between annotators
+* Label distribution in Aggregation labels
+* Label distribution in Train-Dev-Test splits, in binary and multi-class setting.
+
+**Strengths**
+* Carefully curated dataset, balanced in term of concreteness - abstractness
+* Provide raw annotation, majority votings, MACE aggregation
+* Provide both fine-grained multiclass and binary classification
+* Similar label distributions for Train-Dev-Test Splits
+
+**Weakness**
+* Small number of triples
+* Extracted from Wikipedia - might have biases and not aware of diversity
+* Unbalanced in final label distribution - more skewed to Positive class
+* Crowdsource annotation - might have noise and hard to model automatically
