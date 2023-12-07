@@ -16,7 +16,17 @@ We analyzed five aspects of pep-3k data, including:
 * Words Similarity
 * Word Overlap Across Train, Dev, and Test Datasets
 
-In general, this dataset reveals a restricted vocabulary, characterized by a notable recurrence of specific words. Subjects and objects within this dataset predominantly exhibit concrete characteristics, showcasing a subtle differentiation between 'plausible' and 'implausible'. Nouns take the lead in frequency, closely followed by verbs. The misclassification rate for words tagged as adjectives is relatively low and doesn't display any discernible bias towards 'plausible' or 'implausible'. Across various categories, there exists a slightly similarity between 'plausible' and 'implausible' words. Additionally, a small percentage of new words is observed in the dev dataset and test dataset, indicating a level of consistency across different dataset splits.
+**Strengths:**
+* The dataset maintains a consistent S-V-O structure without incorporating modifiers.
+* It exhibits an equitable distribution between plausible and implausible events, ensuring a balanced representation within the dataset.
+* Subjects and objects solely embody concrete characteristics, entirely excluding abstract concepts. Able to exclude concrete/abstract interference when we analyze other aspects.
+* A small percentage of new words is observed in the dev dataset and test dataset, indicating a level of consistency across different dataset splits.
+
+**Weaknesses:**
+* This dataset reveals a restricted vocabulary, characterized by a notable recurrence of specific words.
+* Only contain nouns and verbs, no modifiers involved.
+* In various categories, it shows a slightly similarity between plausible words and implausible words. There is no evidence supporting a preference between 'plausible' and 'implausible' for specific words or topics.
+
 
 ### ADEPT
 We analyzed the following five aspects:
@@ -35,6 +45,7 @@ We analyzed the following five aspects:
 **Weaknesses:**
 1. The labels are highly imbalanced for both 5-class and 3-class labels.
 2. The distribution of modifiers is also imbalanced, with many duplicated non-subsective adjectives, as well as adj-noun pairs.
+
 
 ### PAP
 We explore the following aspecs
