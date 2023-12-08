@@ -38,8 +38,6 @@ conda activate [/path/to/environement]
 
 We assume that dataset directory is `/mount/studenten/semantic-plausibility/datasets`.
 
-### 4. Get word2vec
-We assume that 'word2vec-google-news-300.gz' is in the parent directory of this repository.
 
 
 ## DATASET ANALYSIS
