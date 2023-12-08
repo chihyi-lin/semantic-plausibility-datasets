@@ -1,6 +1,48 @@
 Authors (alphabetical order): Chih-Yi Lin, Quy Nguyen and Wen Wen
 
-# semantic_plausibility
+# Modeling semantic plausibility
+## Table of Contents
+[Installation][## Installation]
+[Data analysis][## DATASET ANALYSIS]
+
+## Installation
+    Welcome to our project. Follow these steps to setup and run the code using Conda.
+
+### 1. Clone the Repository
+
+Clone the project repository to your local machine using the following command:
+
+```bash
+git clone https://github.com/chihyi-lin/semantic_plausibility.git
+```
+
+### 2. Navigate to the Project Directory
+
+Change your working directory to the project folder
+
+### 3. Set Up Conda Environment
+
+If you're in our workspace at IMS server, you could use our environment
+
+```bash
+conda activate ./ourenv
+```
+
+Otherwise, create a Conda environment and activate it:
+
+```bash
+conda env create -f environment.yml -p [/path/to/environment]
+conda activate [/path/to/environement]
+```
+
+### 4. Accessing the Dataset
+
+We assume that dataset directory is `/mount/studenten/semantic-plausibility/datasets`.
+
+### 5. Get word2vec 
+
+We assume that `word2vec-google-news-300.gz` is in the same directory of `environment.yml`
+
 
 ## DATASET ANALYSIS
 We explore and perform basic analysis on three datasets available to model semantic plausiblity of s-v-o triples
