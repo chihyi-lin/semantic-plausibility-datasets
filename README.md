@@ -38,9 +38,12 @@ conda activate [/path/to/environment]
 
 We assume that dataset directory is `/mount/studenten/semantic-plausibility/datasets`.
 
+<<<<<<< HEAD
 ### 4. Get word2vec 
 
 We assume that `word2vec-google-news-300.gz` is `gensim-data`, which is located at the same level of this repository, that is`[working_space]/gensim-data/word2vec-google-news-300/word2vec-google-news-300.gz`
+=======
+>>>>>>> main
 
 
 ## DATASET ANALYSIS
@@ -110,3 +113,8 @@ We analyzed the following five aspects:
 1. The labels are highly imbalanced for both 5-class and 3-class labels.
 2. The distribution of modifiers is also imbalanced, with many duplicated non-subsective adjectives, as well as adj-noun pairs.
 
+## Contributions
+- Analysis of PEP-3K: Wen Wen
+- Analysis of PAP: Quy Nguyen
+- Analysis of ADEPT: Chih-Yi Lin
+- Project installation guide: Quy Nguyen
