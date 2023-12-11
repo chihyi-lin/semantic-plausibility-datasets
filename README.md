@@ -107,3 +107,8 @@ We analyzed the following five aspects:
 1. The labels are highly imbalanced for both 5-class and 3-class labels.
 2. The distribution of modifiers is also imbalanced, with many duplicated non-subsective adjectives, as well as adj-noun pairs.
 
+## Contributions
+- Analysis of PEP-3K: Wen Wen
+- Analysis of PAP: Quy Nguyen
+- Analysis of ADEPT: Chih-Yi Lin
+- Project installation guide: Quy Nguyen
