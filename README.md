@@ -30,8 +30,10 @@ conda activate ./ourenv
 Otherwise, create a Conda environment and activate it:
 
 ```bash
-conda env create -f environment.yml -p [/path/to/environment]
+conda create --prefix [/path/to/environment]
+conda env update --prefix [/path/to/environment] --file [/path/to/environment.yml] 
 conda activate [/path/to/environment]
+
 ```
 
 ### 3. Accessing the Dataset
