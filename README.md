@@ -24,7 +24,7 @@ git clone https://github.com/chihyi-lin/semantic_plausibility.git
 If you're in our workspace at IMS server, you could use our environment
 
 ```bash
-conda activate ./ourenv
+conda activate ./falconenv
 ```
 
 Otherwise, create a Conda environment and activate it:
@@ -33,7 +33,6 @@ Otherwise, create a Conda environment and activate it:
 conda create --prefix [/path/to/environment]
 conda env update --prefix [/path/to/environment] --file [/path/to/environment.yml] 
 conda activate [/path/to/environment]
-
 ```
 
 ### 3. Accessing the Dataset
@@ -42,7 +41,7 @@ We assume that dataset directory is `/mount/studenten/semantic-plausibility/data
 
 ### 4. Get word2vec 
 
-We assume that the `word2vec` model is inside the directory `gensim-data`, which is located at the same level of this repository, that is`[working_space]/gensim-data/word2vec-google-news-300/word2vec-google-news-300.gz`
+We assume that the `word2vec` model is inside the directory `gensim-data`, which is located at the same level of this repository, that is`[our_working_space]/submission/gensim-data/word2vec-google-news-300/word2vec-google-news-300.gz`
 
 
 ## DATASET ANALYSIS
